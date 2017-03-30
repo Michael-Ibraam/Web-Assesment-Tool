@@ -17,17 +17,21 @@
         MathJax.Hub.Config({
           tex2jax: {inlineMath: [['\\[','\\]'], ['$','$'],['\\(','\\)']]}
         });
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            }
+        }
     </script>
 
-    <!-- For the Questions Page -->
-    <%--    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-    <link rel="stylesheet" href="css/questions.css"> <!-- Resource style -->
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/jquery.mobile.custom.min.js"></script>
-    <script src="js/main.js"></script> <!-- Resource jQuery -->--%>
-
-    <!-- End the Questions Page -->
 
 
 

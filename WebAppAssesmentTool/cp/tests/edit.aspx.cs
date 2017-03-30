@@ -56,7 +56,7 @@ namespace WebAppAssesmentTool.cp.tests
                     {
                         if (activeFound())
                         {
-                            Response.Write("<script>alert('There is already an active test ')</script>");
+                            Response.Write("<script>alert('There is already an active test, please disable current active test ')</script>");
                             return;
                         }else
                         {

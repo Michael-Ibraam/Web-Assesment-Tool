@@ -15,17 +15,7 @@
                             <asp:Label ID="Label_test_name" runat="server" Text="Test Name: "></asp:Label>
                         </td>
                         <td>
-<%--                            <telerik:RadTextBox  ID="RadTextBox_test_name" runat="server" EmptyMessage="Please write a name for the test" required  LabelWidth="64px" Resize="None" Skin="Default" TextMode="SingleLine" Width="300px" CausesValidation="true"></telerik:RadTextBox>--%>
                             <asp:TextBox ID="textBox_test_name" runat="server" Width="100%" placeholder="Please write a name for the test"  required=""></asp:TextBox>
-<%--                            <asp:RequiredFieldValidator
-                                EnableClientScript="true"
-                                ID="TextBoxRequiredFieldValidator"
-                                runat="server"
-                                Display="Dynamic"
-                                ControlToValidate="RadTextBox_test_name"
-                                ErrorMessage="Can not be empty!"
-                                ForeColor="Red">
-                            </asp:RequiredFieldValidator>--%>
                         </td>
                     </tr>
                     <tr>
