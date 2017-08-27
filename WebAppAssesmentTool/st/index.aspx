@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="WebAppAssesmentTool.index" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <style>
-        
         button.accordion {
-            background-color: #b6ff00;
-            color: #0026ff;
+            background-color: #eee;
+            color: #444;
             cursor: pointer;
             padding: 18px;
             width: 100%;
@@ -16,21 +16,21 @@
             transition: 0.4s;
         }
 
-        button.accordion.active, button.accordion:hover {
-            background-color: #ddd;
-        }
+            button.accordion.active, button.accordion:hover {
+                background-color: #ddd;
+            }
 
-        button.accordion:after {
-            content: '\002B';
-            color: #777;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }
+            button.accordion:after {
+                content: '\002B';
+                color: #777;
+                font-weight: bold;
+                float: right;
+                margin-left: 5px;
+            }
 
-        button.accordion.active:after {
-            content: "\2212";
-        }
+            button.accordion.active:after {
+                content: "\2212";
+            }
 
         div.panel {
             padding: 0 18px;
@@ -40,36 +40,38 @@
             transition: max-height 0.2s ease-out;
         }
     </style>
-    <script>
-        var acc = document.getElementsByClassName("accordion");
-        var i;
 
-        for (i = 0; i < acc.length; i++) {
-            acc[i].onclick = function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                } else {
-                    panel.style.maxHeight = panel.scrollHeight + "px";
+
+
+    <script>
+        $(document).ready(function () {
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].onclick = function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
                 }
             }
-        }
-    </script>
 
+
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <div id="accordion" role="tablist" aria-multiselectable="true" runat="server">
-    
+    <div id="accordion" runat="server">
 
     </div>
 
-    <button class="accordion">Section 1</button>
-    <div class="panel">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
+
 
     <asp:Label runat="server" ID="Label1" />
 

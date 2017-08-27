@@ -23,17 +23,17 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link href="../dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"/>
+    <link href="../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
     <link href="../css/jumbotron.css" rel="stylesheet" />
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../assets/js/ie-emulation-modes-warning.js" ></script>
+    <script src="../assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -45,157 +45,83 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <form id="form2" runat="server">
+        <telerik:RadScriptManager ID="RadScriptManager1" EnablePageMethods="true" runat="server"></telerik:RadScriptManager>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" target="_blank" href="https://www.hs-mittweida.de/">Hochschule Mittweida</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    
+                        <ul class="nav navbar-nav navbar-form navbar-right">        
+                            <li><a href="~/cp/admin_panel.aspx" runat="server">Home</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Questions <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/cp/questions/add.aspx" runat="server">Add</a></li>
+                                    <li><a href="~/cp/questions/delete.aspx" runat="server">Delete</a></li>
+                                </ul>
+                            </li>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Answers <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/cp/answers/delete.aspx" runat="server">Delete</a></li>
+                                    <li><a href="~/cp/answers/viewAll.aspx" runat="server">View All</a></li>
+                                </ul>
+                            </li>
 
-                </button>
-                <a class="navbar-brand" target="_blank" href="https://www.hs-mittweida.de/">Hochschule Mittweida</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <form id="form1" class="navbar-form navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li><a href="~/cp/admin_panel.aspx" runat="server">Home</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tests <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/cp/tests/add.aspx" runat="server">Add</a></li>
+                                    <li><a href="~/cp/tests/edit.aspx" runat="server">Edit/Delete</a></li>
+                                </ul>
+                            </li>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Questions <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/cp/questions/add.aspx" runat="server">Add</a></li>
-                                <li><a href="~/cp/questions/delete.aspx" runat="server">Delete</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Answers <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/cp/answers/delete.aspx" runat="server">Delete</a></li>
-                                <li><a href="~/cp/answers/viewAll.aspx" runat="server">View All</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tests <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/cp/tests/add.aspx" runat="server">Add</a></li>
-                                <li><a href="~/cp/tests/edit.aspx" runat="server">Edit/Delete</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admins <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/cp/admins/add.aspx" runat="server">Add</a></li>
-                                <li><a href="~/cp/admins/delete.aspx" runat="server">Delete</a></li>
-                                <li><a href="~/cp/admins/viewAll.aspx" runat="server">View All</a></li>
-                            </ul>
-                        </li>
-
-
-                        <li><a href="viewApplicantScores.aspx" runat="server">View Applicant Scores</a></li>
-
-                    </ul>
-
-                    <%--
-                    <telerik:RadMenu ID="RadMenu1" runat="server" ShowToggleHandle="true" Skin="Default">
-                        <Items>
-                            <telerik:RadMenuItem Text="Home" NavigateUrl="admin_panel.aspx"></telerik:RadMenuItem>
-                            <telerik:RadMenuItem Text="Questions">
-                                <Items>
-                                    <telerik:RadMenuItem Text="Add" NavigateUrl="questions/add.aspx"></telerik:RadMenuItem>
-                                    <telerik:RadMenuItem Text="Delete" NavigateUrl="questions/delete.aspx"></telerik:RadMenuItem>
-                                </Items>
-                            </telerik:RadMenuItem>
-                            <telerik:RadMenuItem Text="Answers">
-                                <Items>
-                                    <telerik:RadMenuItem Text="Delete" NavigateUrl="answers/delete.aspx"></telerik:RadMenuItem>
-                                    <telerik:RadMenuItem Text="View All" NavigateUrl="answers/viewAll.aspx"></telerik:RadMenuItem>
-
-                                </Items>
-                            </telerik:RadMenuItem>
-                            <telerik:RadMenuItem Text="Tests">
-                                <Items>
-                                    <telerik:RadMenuItem Text="Add" NavigateUrl="tests/add.aspx"></telerik:RadMenuItem>
-                                    <telerik:RadMenuItem Text="Edit/Delete" NavigateUrl="tests/edit.aspx"></telerik:RadMenuItem>
-                                </Items>
-                            </telerik:RadMenuItem>
-                            <telerik:RadMenuItem Text="Admins">
-                                <Items>
-                                    <telerik:RadMenuItem Text="Add" NavigateUrl="admins/add.aspx"></telerik:RadMenuItem>
-                                    <telerik:RadMenuItem Text="Delete" NavigateUrl="admins/delete.aspx"></telerik:RadMenuItem>
-                                    <telerik:RadMenuItem Text="View All" NavigateUrl="admins/viewAll.aspx"></telerik:RadMenuItem>
-
-                                </Items>
-                            </telerik:RadMenuItem>
-                            <telerik:RadMenuItem Text="View Applicant Scores" NavigateUrl="viewApplicantScores.aspx">
-                            </telerik:RadMenuItem>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admins <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/cp/admins/add.aspx" runat="server">Add</a></li>
+                                    <li><a href="~/cp/admins/delete.aspx" runat="server">Delete</a></li>
+                                    <li><a href="~/cp/admins/viewAll.aspx" runat="server">View All</a></li>
+                                </ul>
+                            </li>
 
 
-                        </Items>
+                            <li><a href="viewApplicantScores.aspx" runat="server">View Applicant Scores</a></li>
+                            <li>
+                                <asp:LoginStatus runat="server" ID="LoginStatus2" CssClass=" btn btn-default btn-sm glyphicon glyphicon-log-out" />
+                            </li>
 
-                    </telerik:RadMenu>--%>
-                </form>
-
-            </div>
-            <!--/.navbar-collapse -->
-        </div>
-    </nav>
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div class="container">
-            <%--            <h1>Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>--%>
-
-            <form id="form2" runat="server">
-                <telerik:RadScriptManager ID="RadScriptManager1" EnablePageMethods="true" runat="server"></telerik:RadScriptManager>
-
-                <div>
-                    Welcome
-             <asp:LoginName ID="LoginName1" runat="server" Font-Bold="true" />
-                    <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                        </ul>
 
                 </div>
+                <!--/.navbar-collapse -->
+            </div>
+        </nav>
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <div class="container">
                 <div>
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
-            </form>
-
-
-
-
+            </div>
         </div>
-    </div>
 
+
+    </form>
 
     <div class="container">
-        <!-- Example row of columns -->
-        <%--<div class="row">
-            <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-        </div>--%>
-
         <hr>
-
         <footer>
             <p>&copy; 2016 HS Mittweida</p>
         </footer>

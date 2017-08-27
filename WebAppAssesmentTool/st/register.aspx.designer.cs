@@ -85,13 +85,13 @@ namespace WebAppAssesmentTool.st {
         protected global::System.Web.UI.WebControls.TextBox TextBox_birth_date;
         
         /// <summary>
-        /// TextBox_country control.
+        /// ddlCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_country;
+        protected global::Telerik.Web.UI.RadComboBox ddlCountry;
         
         /// <summary>
         /// RadNotification1 control.

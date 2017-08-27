@@ -10,7 +10,8 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <br />
+    <br />
     <div>
         <ul>
             <li>You can take the test only 1 time.
@@ -22,8 +23,13 @@
             <li>Press Start to start the test.
             </li>
 
-        </ul>
-        <asp:Button ID="Button1_submit" OnClick="Button1_submit_Click" CssClass="Button1_submit" runat="server" Text="Start" />
+            <li>You can view your test score by clicking  <a href="viewScore.aspx"> Here  </a>
+            </li>
 
+        </ul>
+        <br />
+        <br />
+
+        <asp:Button ID="Button1_submit" OnClick="Button1_submit_Click" CssClass="Button1_submit" runat="server" Text="Start" />
     </div>
 </asp:Content>

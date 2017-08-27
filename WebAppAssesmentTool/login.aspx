@@ -11,13 +11,13 @@
     <title>Home</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"/>
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
-    <link href="css/jumbotron.css" rel="stylesheet"/>
+    <link href="css/jumbotron.css" rel="stylesheet" />
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -40,7 +40,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-
                 </button>
                 <a class="navbar-brand" target="_blank" href="https://www.hs-mittweida.de/">Hochschule Mittweida</a>
             </div>
@@ -55,15 +54,24 @@
                                 <button type="button" class="btn btn-link">Register</button>
                             </a>
                             <span style="color: red">
-                                <asp:Literal ID="FailureText" runat="server" EnableViewState="False">
-                            
+                                <asp:Literal ID="FailureText" runat="server" EnableViewState="False">  
                                 </asp:Literal>
                             </span>
-
                         </LayoutTemplate>
                     </asp:Login>
                 </form>
+
+                <form id="form2" class="navbar-form navbar-right" visible="false" runat="server">
+                    <ul class="nav navbar-nav navbar-form navbar-right">
+                        <li><a href="~/login.aspx" runat="server">Home</a></li>
+                        <li><a href="~/st/info.aspx" runat="server">Take the Test</a></li>
+                        <li>
+                             <asp:LoginStatus runat="server" ID="LoginStatus2" CssClass=" btn btn-default btn-sm glyphicon glyphicon-log-out" />
+                        </li>
+                    </ul>
+                </form>
             </div>
+
             <!--/.navbar-collapse -->
         </div>
     </nav>
@@ -71,7 +79,7 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello, world!</h1>
+            <h1>Welcome </h1>
             <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
             <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
         </div>
@@ -114,5 +122,3 @@
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
-
-

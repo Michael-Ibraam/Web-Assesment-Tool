@@ -52,7 +52,15 @@ namespace WebAppAssesmentTool.st
                     Label_first_name.Text = reader["first_name"].ToString();
                     Label_last_name.Text = reader["last_name"].ToString();
                     Label_email.Text = reader["email"].ToString();
-                    Label_test_score.Text = reader["test_score"].ToString();
+                    if(reader["test_score"].ToString()== null || reader["test_score"].ToString() == "" )
+                    {
+                        Label_test_score.Text = "Not taken yet";
+                    }
+                    else
+                    {
+                        Label_test_score.Text = reader["test_score"].ToString();
+                    }
+                    
                 }
                 conn.Close();
             }

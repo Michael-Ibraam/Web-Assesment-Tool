@@ -17,6 +17,14 @@ namespace WebAppAssesmentTool.st
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Boolean isLoggedIn = this.Page.User.Identity.IsAuthenticated;
+
+            if (this.Page.User.Identity.IsAuthenticated)
+            {
+                form1.Visible = false;
+                form2.Visible = true;
+            }
+
 
         }
 

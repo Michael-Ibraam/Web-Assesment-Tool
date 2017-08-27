@@ -28,17 +28,25 @@ namespace WebAppAssesmentTool
         {
             try
             {
-               
-                    Page.Title = "Home";
-                    Boolean b = Roles.IsUserInRole(this.Page.User.Identity.Name, "applicant");
-                    if (!this.Page.User.Identity.IsAuthenticated || !b)
-                    {
-                        FormsAuthentication.RedirectToLoginPage();
-                    }
-                   // LoadControls();
+                Page.Title = "Test";
+                Boolean b = Roles.IsUserInRole(this.Page.User.Identity.Name, "applicant");
+                if (!this.Page.User.Identity.IsAuthenticated || !b)
+                {
+                    FormsAuthentication.RedirectToLoginPage();
+                }
 
+                if (!isTestTaken(this.Page.User.Identity.Name))
+                {
                     viewTest();
-                          
+                }
+                else
+                {
+                    var message = new JavaScriptSerializer().Serialize("You can't take the test more than 1 time");
+                    var script = string.Format("alert({0});", message);
+                    ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
+                    Button1_submit.Visible = false;
+                    Response.Redirect("/st/info.aspx");
+                }
             }
             catch (Exception ex)
             {
@@ -49,75 +57,79 @@ namespace WebAppAssesmentTool
 
         }
 
+        private Boolean isTestTaken(String email)
+        {
+            try
+            {
+                string query = "select test_score from applicants where email=@email";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                conn.Open();
+                String testScore = cmd.ExecuteScalar().ToString();
+                conn.Close();
+
+                if (testScore == null || testScore=="")
+                {
+                    return false;
+                }
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                var message = new JavaScriptSerializer().Serialize(ex.Message.ToString());
+                var script = string.Format("alert({0});", message);
+                ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
+                return true;
+
+
+            }
+        }
+
         protected void viewTest()
         {
             try
             {
-                    conn.Open();
-                    SqlCommand cmd1 = new SqlCommand("selectActiveTestQuestions", conn);
-                    cmd1.CommandType = CommandType.StoredProcedure;
-                    SqlDataReader reader = cmd1.ExecuteReader();
-                    int index = 1;
-                    while (reader.Read())
-                    {
+                conn.Open();
+                SqlCommand cmd1 = new SqlCommand("selectActiveTestQuestions", conn);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = cmd1.ExecuteReader();
+                int index = 1;
+                while (reader.Read())
+                {
+                   
+                    var button = new HtmlGenericControl("button");
+                    button.Attributes.Add("class", "accordion");
+                    button.Attributes.Add("type", "button");
+                    var bold = new HtmlGenericControl("b");
+                    bold.InnerText = index + ". "+ reader["text"].ToString();
+                    button.Controls.Add(bold);
 
-                        HtmlAnchor a = new HtmlAnchor();
-                        a.Attributes.Add("class", "collapsed");
-                        a.Attributes.Add("data-toggle", "collapse");
-                        a.Attributes.Add("data-parent", "#accordion");
-                        a.Attributes.Add("href", "#collapse" + index);
-                        a.Attributes.Add("aria-expanded", "false");
-                        a.Attributes.Add("aria-controls", "collapse" + index);
-                        a.Attributes.Add("class", "collapsed");
-                        var bold = new HtmlGenericControl("b");
-                        bold.InnerText = reader["text"].ToString();
-                        a.Controls.Add(bold);
-
-                        var h5 = new HtmlGenericControl("h5");
-                        h5.Attributes.Add("class", "mb-0");
-                        h5.Controls.Add(a);
-
-                        var divHead = new HtmlGenericControl("div");
-                        divHead.Attributes.Add("id", "heading" + index);
-                        divHead.Attributes.Add("class", "card-header");
-                        divHead.Attributes.Add("role", "tab");
-                        divHead.Controls.Add(h5);
+                    RadRadioButtonList radioList = new RadRadioButtonList();
+                    SqlDataSource_radioList.SelectParameters[0].DefaultValue = reader["question_id"].ToString();
+                    question_id_list.AddLast(reader["question_id"].ToString());
+                    radioList.DataSource = SqlDataSource_radioList;
+                    radioList.AutoPostBack = false;
+                    SqlDataSource_radioList.DataBind();
+                    radioList.DataBindings.DataTextField = "answer_text";
+                    radioList.DataBindings.DataValueField = "answer_id";
+                    radioList.ID = "Radio" + index;
+                    radioList.DataBind();
 
 
-                        RadRadioButtonList radioList = new RadRadioButtonList();
-                        SqlDataSource_radioList.SelectParameters[0].DefaultValue = reader["question_id"].ToString();
-                        question_id_list.AddLast(reader["question_id"].ToString());
-                        radioList.DataSource = SqlDataSource_radioList;
-                        radioList.AutoPostBack = false;
-                        SqlDataSource_radioList.DataBind();
-                        radioList.DataBindings.DataTextField = "answer_text";
-                        radioList.DataBindings.DataValueField = "answer_id";
-                        radioList.ID = "Radio" + index;
-                        radioList.DataBind();
+                    var divHead = new HtmlGenericControl("div");
+                    divHead.Attributes.Add("class", "panel");
+                    divHead.Controls.Add(radioList);
 
+                    accordion.Controls.Add(button);
+                    accordion.Controls.Add(divHead);
 
-                        var divAnswers = new HtmlGenericControl("div");
-                        divAnswers.Attributes.Add("class", "card-block");
-                        divAnswers.Controls.Add(radioList);
+                    index++;
 
-                        var divCollapse = new HtmlGenericControl("div");
-                        divCollapse.Attributes.Add("id", "collapse" + index);
-                        divCollapse.Attributes.Add("class", "collapse");
-                        divCollapse.Attributes.Add("role", "tabpanel");
-                        divCollapse.Attributes.Add("aria-labelledby", "heading" + index);
-                        divCollapse.Controls.Add(divAnswers);
+                }
+                conn.Close();
 
-                        var divCard = new HtmlGenericControl("div");
-                        divCard.Attributes.Add("class", "card");
-                        divCard.Controls.Add(divHead);
-                        divCard.Controls.Add(divCollapse);
-
-                        accordion.Controls.Add(divCard);
-                        index++;
-
-                    }
-                    conn.Close();
-                
             }
             catch (Exception ex)
             {
@@ -163,11 +175,11 @@ namespace WebAppAssesmentTool
                 GetControlList<RadRadioButtonList>(Page.Controls, allControls);
                 for (int i = 0; i < allControls.Count; i++)
                 {
-                    int j = i+1;
+                    int j = i + 1;
                     RadRadioButtonList radioButton = (RadRadioButtonList)accordion.FindControl("Radio" + j);
                     String answer_value = radioButton.SelectedValue;
                     if (answer_value == "" || answer_value == null)
-                     {
+                    {
                         RadNotification1.Text = "One or more questions is not answered";
                         RadNotification1.Show();
                         return;
@@ -177,7 +189,7 @@ namespace WebAppAssesmentTool
                         answer_id_list.AddLast(answer_value);
                     }
                 }
-                
+
 
                 calculateScore();
             }
@@ -210,7 +222,7 @@ namespace WebAppAssesmentTool
                     }
 
                     string correct_answer_id = cmd.ExecuteScalar().ToString();
-                    if (answer_id_list.Count > 0 )
+                    if (answer_id_list.Count > 0)
                     {
                         if (correct_answer_id == answer_id_list.ElementAt(i))
                         {

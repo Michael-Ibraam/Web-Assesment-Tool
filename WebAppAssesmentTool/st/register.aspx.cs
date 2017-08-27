@@ -46,16 +46,24 @@ namespace WebAppAssesmentTool.st
                 string email = TextBox_email.Text.Trim();
                 string passwrod = radTextBox_password.Text.Trim();
                 string birthDate = TextBox_birth_date.Text.Trim();
-                string country = TextBox_country.Text.Trim();
-                Boolean found = isFound(email);
+                //If no country is selected return error.
+                if (ddlCountry.SelectedItem == null)
+                {
+                    var message = new JavaScriptSerializer().Serialize("Please choose a country");
+                    var script = string.Format("alert({0});", message);
+                    ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
+                    return;
+                }
+                //If passwords doesn't match return error.
                 if (radTextBox_password.Text.Trim() != radTextBox_retypePassword.Text.Trim())
                 {
                     var message = new JavaScriptSerializer().Serialize("Passowrds are not matching");
                     var script = string.Format("alert({0});", message);
                     ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
-
                     return;
                 }
+                //If email is already registered return error
+                Boolean found = isFound(email);
                 if (!found)
                 {
                     string query = "insert into applicants (first_name,last_name,email,password,country,date_of_birth) OUTPUT INSERTED.applicant_id  values(@first_name,@last_name,@email,@password,@country,@date_of_birth)";
@@ -64,7 +72,7 @@ namespace WebAppAssesmentTool.st
                     cmd.Parameters.AddWithValue("@last_name", lastName);
                     cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@password", passwrod);
-                    cmd.Parameters.AddWithValue("@country", country);
+                    cmd.Parameters.AddWithValue("@country", ddlCountry.SelectedItem.Text);
                     cmd.Parameters.AddWithValue("@date_of_birth", birthDate);
                     //cmd.Parameters.AddWithValue("@passport_number", passportNumber);
                     conn.Open();
@@ -76,9 +84,10 @@ namespace WebAppAssesmentTool.st
                         {
                             Roles.CreateRole("applicant");
                         }
-
-                        Roles.AddUserToRole(email, "applicant");
-
+                        if (!Roles.IsUserInRole(email, "applicant"))
+                        {
+                            Roles.AddUserToRole(email, "applicant");
+                        }
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
                         "alert('User created successfully'); window.location='" +
                         Request.ApplicationPath + "../login.aspx';", true);
