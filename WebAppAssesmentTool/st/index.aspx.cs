@@ -224,7 +224,7 @@ namespace WebAppAssesmentTool
                     string correct_answer_id = cmd.ExecuteScalar().ToString();
                     if (answer_id_list.Count > 0)
                     {
-                        if (correct_answer_id == answer_id_list.ElementAt(i))
+                        if ( answer_id_list.Contains(correct_answer_id))
                         {
                             score++;
                         }
@@ -233,10 +233,11 @@ namespace WebAppAssesmentTool
                     conn.Close();
 
                 }
-                int finalScore = score;
+                double scorePercentage = (double) score / question_id_list.Count;
+                int finalScore = (int)(Math.Round(scorePercentage * 100));
                 string update_score_query = "update  applicants set test_score = @test_score where email =@email";
                 cmd.CommandText = update_score_query;
-                cmd.Parameters.AddWithValue("test_score", score);
+                cmd.Parameters.AddWithValue("test_score", finalScore);
                 cmd.Parameters.AddWithValue("@email", this.Page.User.Identity.Name);
                 conn.Open();
                 cmd.ExecuteNonQuery();

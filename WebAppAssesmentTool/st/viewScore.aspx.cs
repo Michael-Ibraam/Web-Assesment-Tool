@@ -58,7 +58,7 @@ namespace WebAppAssesmentTool.st
                     }
                     else
                     {
-                        Label_test_score.Text = reader["test_score"].ToString();
+                        Label_test_score.Text = reader["test_score"].ToString() + "%";
                     }
                     
                 }
