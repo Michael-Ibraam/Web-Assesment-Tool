@@ -5,8 +5,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h3>View Applicants Data</h3>
     <telerik:RadGrid ID="RadGrid1" runat="server" AllowFilteringByColumn="True" AllowPaging="True" AllowSorting="True" DataSourceID="SqlDataSource1">
-
-
         <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
         <MasterTableView  AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
             <Columns>
@@ -19,8 +17,6 @@
                 <telerik:GridBoundColumn DataField="country" FilterControlAltText="Filter country column" HeaderText="country" SortExpression="country" UniqueName="country">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="date_of_birth" DataType="System.DateTime" FilterControlAltText="Filter date_of_birth column" HeaderText="date_of_birth" SortExpression="date_of_birth" UniqueName="date_of_birth">
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="passport_number" FilterControlAltText="Filter passport_number column" HeaderText="passport_number" SortExpression="passport_number" UniqueName="passport_number">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="test_score" DataType="System.Decimal" FilterControlAltText="Filter test_score column" HeaderText="test_score" SortExpression="test_score" UniqueName="test_score">
                 </telerik:GridBoundColumn>

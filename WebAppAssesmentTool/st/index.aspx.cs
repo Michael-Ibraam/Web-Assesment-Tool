@@ -28,6 +28,7 @@ namespace WebAppAssesmentTool
         {
             try
             {
+
                 Page.Title = "Test";
                 Boolean b = Roles.IsUserInRole(this.Page.User.Identity.Name, "applicant");
                 if (!this.Page.User.Identity.IsAuthenticated || !b)

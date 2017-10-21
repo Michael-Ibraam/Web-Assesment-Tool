@@ -41,8 +41,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" target="_blank" href="https://www.hs-mittweida.de/">Hochschule Mittweida</a>
             </div>
+            <a class="navbar-brand" target="_blank" href="https://www.hs-mittweida.de/">Hochschule Mittweida</a>
             <div id="navbar" class="navbar-collapse collapse">
                 <form class="navbar-form navbar-right" runat="server" id="form1">
                     <asp:Login ID="Login1" runat="server" OnAuthenticate="Login1_Authenticate">
@@ -60,18 +60,16 @@
                         </LayoutTemplate>
                     </asp:Login>
                 </form>
-
                 <form id="form2" class="navbar-form navbar-right" visible="false" runat="server">
                     <ul class="nav navbar-nav navbar-form navbar-right">
                         <li><a href="~/login.aspx" runat="server">Home</a></li>
                         <li><a href="~/st/info.aspx" runat="server">Take the Test</a></li>
                         <li>
-                             <asp:LoginStatus runat="server" ID="LoginStatus2" CssClass=" btn btn-default btn-sm glyphicon glyphicon-log-out" />
+                            <asp:LoginStatus runat="server" ID="LoginStatus2" CssClass=" btn btn-default btn-sm glyphicon glyphicon-log-out" />
                         </li>
                     </ul>
                 </form>
             </div>
-
             <!--/.navbar-collapse -->
         </div>
     </nav>
@@ -79,13 +77,13 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1>Welcome </h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+            <h2>Welcome to Hochschule Mittweida online assesment tool </h2>
+            <p>This is an online assesment tool for Hochschule Mittweida, if it's your first visit here please create an account so you can be able to take the test. </p>
+            <p><a class="btn btn-primary btn-lg" href="st/register.aspx" role="button">Register Here &raquo;</a></p>
         </div>
     </div>
 
-    <div class="container">
+    <%--<div class="container">
         <!-- Example row of columns -->
         <div class="row">
             <div class="col-md-4">
@@ -110,7 +108,7 @@
         <footer>
             <p>&copy; 2016 HS Mittweida</p>
         </footer>
-    </div>
+    </div>--%>
     <!-- /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->

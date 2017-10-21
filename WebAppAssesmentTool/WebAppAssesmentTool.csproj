@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -162,6 +163,8 @@
     <Content Include="dist\js\npm.js" />
     <Content Include="images\add.png" />
     <Content Include="css\jumbotron.css" />
+    <Content Include="images\hsmw.png" />
+    <Content Include="images\hsmw.jpg" />
     <Content Include="js\jquery-2.1.1.js" />
     <Content Include="js\jquery.mobile.custom.min.js" />
     <Content Include="js\main.js" />
@@ -180,6 +183,7 @@
     <Content Include="dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="dist\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
+    <None Include="Properties\PublishProfiles\webassesment - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
