@@ -31,13 +31,13 @@ namespace WebAppAssesmentTool {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// Button1_submit control.
+        /// radbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1_submit;
+        protected global::Telerik.Web.UI.RadButton radbtn;
         
         /// <summary>
         /// SqlDataSource_radioList control.

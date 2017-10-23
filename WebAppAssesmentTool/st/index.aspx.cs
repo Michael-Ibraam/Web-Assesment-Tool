@@ -28,7 +28,6 @@ namespace WebAppAssesmentTool
         {
             try
             {
-
                 Page.Title = "Test";
                 Boolean b = Roles.IsUserInRole(this.Page.User.Identity.Name, "applicant");
                 if (!this.Page.User.Identity.IsAuthenticated || !b)
@@ -45,10 +44,12 @@ namespace WebAppAssesmentTool
                     var message = new JavaScriptSerializer().Serialize("You can't take the test more than 1 time");
                     var script = string.Format("alert({0});", message);
                     ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
-                    Button1_submit.Visible = false;
+                    //Button1_submit.Visible = false;
+                    //RadButton1.Visible = false;
                     Response.Redirect("/st/info.aspx");
                 }
             }
+
             catch (Exception ex)
             {
                 var message = new JavaScriptSerializer().Serialize(ex.Message.ToString());
@@ -69,7 +70,7 @@ namespace WebAppAssesmentTool
                 String testScore = cmd.ExecuteScalar().ToString();
                 conn.Close();
 
-                if (testScore == null || testScore=="")
+                if (testScore == null || testScore == "")
                 {
                     return false;
                 }
@@ -92,6 +93,7 @@ namespace WebAppAssesmentTool
         {
             try
             {
+
                 conn.Open();
                 SqlCommand cmd1 = new SqlCommand("selectActiveTestQuestions", conn);
                 cmd1.CommandType = CommandType.StoredProcedure;
@@ -99,12 +101,12 @@ namespace WebAppAssesmentTool
                 int index = 1;
                 while (reader.Read())
                 {
-                   
+
                     var button = new HtmlGenericControl("button");
                     button.Attributes.Add("class", "accordion");
                     button.Attributes.Add("type", "button");
                     var bold = new HtmlGenericControl("b");
-                    bold.InnerText = index + ". "+ reader["text"].ToString();
+                    bold.InnerText = index + ". " + reader["text"].ToString();
                     button.Controls.Add(bold);
 
                     RadRadioButtonList radioList = new RadRadioButtonList();
@@ -112,12 +114,12 @@ namespace WebAppAssesmentTool
                     question_id_list.AddLast(reader["question_id"].ToString());
                     radioList.DataSource = SqlDataSource_radioList;
                     radioList.AutoPostBack = false;
+                    radioList.Attributes.Add("name", "radioList");
                     SqlDataSource_radioList.DataBind();
                     radioList.DataBindings.DataTextField = "answer_text";
                     radioList.DataBindings.DataValueField = "answer_id";
                     radioList.ID = "Radio" + index;
                     radioList.DataBind();
-
 
                     var divHead = new HtmlGenericControl("div");
                     divHead.Attributes.Add("class", "panel");
@@ -127,7 +129,6 @@ namespace WebAppAssesmentTool
                     accordion.Controls.Add(divHead);
 
                     index++;
-
                 }
                 conn.Close();
 
@@ -174,25 +175,26 @@ namespace WebAppAssesmentTool
             {
                 List<RadRadioButtonList> allControls = new List<RadRadioButtonList>();
                 GetControlList<RadRadioButtonList>(Page.Controls, allControls);
-                for (int i = 0; i < allControls.Count; i++)
+                if (allControls.Count != 0)
                 {
-                    int j = i + 1;
-                    RadRadioButtonList radioButton = (RadRadioButtonList)accordion.FindControl("Radio" + j);
-                    String answer_value = radioButton.SelectedValue;
-                    if (answer_value == "" || answer_value == null)
+                    for (int i = 0; i < allControls.Count; i++)
                     {
-                        RadNotification1.Text = "One or more questions is not answered";
-                        RadNotification1.Show();
-                        return;
+                        int j = i + 1;
+                        RadRadioButtonList radioButton = (RadRadioButtonList)accordion.FindControl("Radio" + j);
+                        String answer_value = radioButton.SelectedValue;
+                        if (answer_value == "" || answer_value == null)
+                        {
+                            RadNotification1.Text = "One or more questions is not answered";
+                            RadNotification1.Show();
+                            return;
+                        }
+                        else
+                        {
+                            answer_id_list.AddLast(answer_value);
+                        }
                     }
-                    else
-                    {
-                        answer_id_list.AddLast(answer_value);
-                    }
+                    calculateScore();
                 }
-
-
-                calculateScore();
             }
             catch (Exception ex)
             {
@@ -201,12 +203,12 @@ namespace WebAppAssesmentTool
                 ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
             }
         }
+      
 
         private void calculateScore()
         {
             try
             {
-
                 string query = "select correct_answer from questions where question_id=@question_id";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 int i = 0;
@@ -225,7 +227,7 @@ namespace WebAppAssesmentTool
                     string correct_answer_id = cmd.ExecuteScalar().ToString();
                     if (answer_id_list.Count > 0)
                     {
-                        if ( answer_id_list.Contains(correct_answer_id))
+                        if (answer_id_list.Contains(correct_answer_id))
                         {
                             score++;
                         }
@@ -234,7 +236,7 @@ namespace WebAppAssesmentTool
                     conn.Close();
 
                 }
-                double scorePercentage = (double) score / question_id_list.Count;
+                double scorePercentage = (double)score / question_id_list.Count;
                 int finalScore = (int)(Math.Round(scorePercentage * 100));
                 string update_score_query = "update  applicants set test_score = @test_score where email =@email";
                 cmd.CommandText = update_score_query;
@@ -253,6 +255,12 @@ namespace WebAppAssesmentTool
                 //var script = string.Format("alert({0});", message);
                 //ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
             }
+        }
+
+        protected void radbtn_Click(object sender, EventArgs e)
+        {
+            radbtn.Text = "RadButton was clicked at: " + DateTime.Now.ToString();
+
         }
     }
 }

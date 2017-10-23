@@ -63,24 +63,49 @@
 
         });
     </script>
+
+
+    <script>
+
+        function Clicking(sender, args) {
+            var radioList = document.getElementsByName('radioList');
+            var radNotification1  = $find("<%= RadNotification1.ClientID %>");
+
+            for (var i = 0; i < radioList.length; i++) {
+                var radio = radioList[i].control;
+                if (radio.get_selectedIndex() == -1)
+                {
+                    radNotification1.show();
+                    args.set_cancel(true);
+                    break;
+                }
+                args.set_cancel(false);
+            }
+            //args.set_cancel(!window.confirm("Are you sure you want to submit the page?"));
+        }
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
     <div id="accordion" runat="server">
-
     </div>
-
 
 
     <asp:Label runat="server" ID="Label1" />
 
-    <asp:Button ID="Button1_submit" CssClass="Button1_submit" OnClick="Button1_submit_Click" runat="server" Text="Submit" />
+<%--        <asp:Button ID="Button1_submit" OnClientClick="Clicking(sender, args)"  CssClass="Button1_submit"  runat="server" Text="Submit" />--%>
+    
+    <telerik:RadButton RenderMode="Lightweight" ID="radbtn" runat="server" Text="Submit" OnClientClicking="Clicking" OnClick="Button1_submit_Click">
+    </telerik:RadButton>
+
+
     <asp:SqlDataSource ID="SqlDataSource_radioList" runat="server" ConnectionString="<%$ ConnectionStrings:math_media_project_dbConnectionString %>" SelectCommand="SELECT [answer_id], [answer_text] FROM [answers] WHERE ([question_id] = @question_id) ORDER BY NEWID() ">
         <SelectParameters>
             <asp:Parameter DefaultValue="0" Name="question_id" />
         </SelectParameters>
     </asp:SqlDataSource>
-    <telerik:RadNotification ID="RadNotification1" runat="server" Animation="Slide" CloseButtonToolTip="Close" TitleIcon="warning" ContentIcon="warning" Title="Warning" AnimationDuration="500" Position="BottomRight" ShowCloseButton="true" EnableRoundedCorners="true" EnableShadow="true"></telerik:RadNotification>
+    <telerik:RadNotification ID="RadNotification1" Text="One or more questions is not answered" runat="server" Animation="Slide" CloseButtonToolTip="Close" TitleIcon="warning" ContentIcon="warning" Title="Warning" AnimationDuration="500" Position="BottomRight" ShowCloseButton="true" EnableRoundedCorners="true" EnableShadow="true"></telerik:RadNotification>
 
 </asp:Content>
