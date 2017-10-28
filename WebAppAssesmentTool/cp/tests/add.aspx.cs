@@ -54,43 +54,52 @@ namespace WebAppAssesmentTool.cp.tests
                 }
                 if (test_name == "" || test_name == null || collection.Count < 1)
                 {
-                    Response.Write("<script>alert('Incomplete Data ')</script>");
+                    Response.Write("<script>alert('Incomplete Data')</script>");
                     return;
                 }
                 else
                 {
-                    string query = "insert into tests (test_name,test_active) OUTPUT INSERTED.test_id values(@test_name,@active) ";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@test_name", test_name);
-                    if (active)
+                    if(testFound(test_name))
                     {
-                        if (activeFound())
-                        {
-                            Response.Write("<script>alert('There is already an active test ')</script>");
-                            return;
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue("@active", "1");
-                        }
+                        Response.Write("<script>alert('Test name already used, please choose another name')</script>");
+                        return;
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@active", "0");
+                        string query = "insert into tests (test_name,test_active) OUTPUT INSERTED.test_id values(@test_name,@active) ";
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@test_name", test_name);
+                        if (active)
+                        {
+                            if (activeFound())
+                            {
+                                Response.Write("<script>alert('There is already an active test, please disable the current active test first.')</script>");
+                                return;
+                            }
+                            else
+                            {
+                                cmd.Parameters.AddWithValue("@active", "1");
+                            }
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@active", "0");
 
+                        }
+                        conn.Open();
+                        Int32 test_id = Convert.ToInt32(cmd.ExecuteScalar());
+                        for (var i = 0; i < collection.Count; i++)
+                        {
+                            query = "insert into tests_questions (test_id,question_id) values (@test_id,@question_id) ";
+                            cmd = new SqlCommand(query, conn);
+                            cmd.Parameters.AddWithValue("@test_id", test_id);
+                            cmd.Parameters.AddWithValue("@question_id", collection.ElementAt(i));
+                            cmd.ExecuteNonQuery();
+
+                        }
+                        Response.Write("<script>alert('Test Created Successfully')</script>");
                     }
-                    conn.Open();
-                    Int32 test_id = Convert.ToInt32(cmd.ExecuteScalar());
-                    for (var i = 0; i < collection.Count; i++  )
-                    {
-                        query = "insert into tests_questions (test_id,question_id) values (@test_id,@question_id) ";
-                        cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@test_id", test_id);
-                        cmd.Parameters.AddWithValue("@question_id", collection.ElementAt(i));
-                        cmd.ExecuteNonQuery();
-                        
-                    }
-                    Response.Write("<script>alert('Test Created Successfully')</script>");
+                    
 
                 }
                 textBox_test_name.Text = "";
@@ -113,6 +122,32 @@ namespace WebAppAssesmentTool.cp.tests
             {
                 conn.Open();
                 string query = "select  * from tests where test_active=1";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                Int32 r = Convert.ToInt32(cmd.ExecuteScalar());
+                if (r > 0)
+                {
+                    conn.Close();
+                    return true;
+                }
+                conn.Close();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                var message = new JavaScriptSerializer().Serialize(ex.Message.ToString());
+                var script = string.Format("alert({0});", message);
+                ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "", script, true);
+                return false;
+
+            }
+        }
+        private Boolean testFound(string testname)
+        {
+            try
+            {
+                conn.Open();
+                string query = "select  * from tests where test_name=" + testname;
                 SqlCommand cmd = new SqlCommand(query, conn);
                 Int32 r = Convert.ToInt32(cmd.ExecuteScalar());
                 if (r > 0)

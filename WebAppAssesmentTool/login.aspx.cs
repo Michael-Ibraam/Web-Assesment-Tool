@@ -23,6 +23,7 @@ namespace WebAppAssesmentTool.st
             {
                 form1.Visible = false;
                 form2.Visible = true;
+                registerBtn.Visible = false;
             }
 
 

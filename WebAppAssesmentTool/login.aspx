@@ -79,7 +79,7 @@
         <div class="container">
             <h2>Welcome to Hochschule Mittweida online assesment tool </h2>
             <p>This is an online assesment tool for Hochschule Mittweida, if it's your first visit here please create an account so you can be able to take the test. </p>
-            <p><a class="btn btn-primary btn-lg" href="st/register.aspx" role="button">Register Here &raquo;</a></p>
+            <p id ="registerBtn" runat="server" visible="true"><a class="btn btn-primary btn-lg" href="st/register.aspx" role="button">Register Here &raquo;</a></p>
         </div>
     </div>
 

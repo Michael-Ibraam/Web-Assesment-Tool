@@ -97,7 +97,7 @@
 
 <%--        <asp:Button ID="Button1_submit" OnClientClick="Clicking(sender, args)"  CssClass="Button1_submit"  runat="server" Text="Submit" />--%>
     
-    <telerik:RadButton RenderMode="Lightweight" ID="radbtn" runat="server" Text="Submit" OnClientClicking="Clicking" OnClick="Button1_submit_Click">
+    <telerik:RadButton Height="70" Width="100%" Skin="" RenderMode="Lightweight" ID="radbtn" runat="server" Text="Submit" OnClientClicking="Clicking" OnClick="Button1_submit_Click" CssClass="btn-success" Font-Size="Large">
     </telerik:RadButton>
 
 
